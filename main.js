@@ -1,8 +1,9 @@
 "use strict";
 
 const clockContainer = document.querySelector(".clock");
-const DateText = clockContainer.querySelector("#date");
+const dateText = clockContainer.querySelector("#date");
 const clockText = clockContainer.querySelector("#clock");
+const background = clockContainer.querySelector("#background");
 
 // Get day, date, month
 const getDay = () => {
@@ -25,7 +26,7 @@ const getDay = () => {
     "November",
     "December",
   ];
-  DateText.innerHTML = `${days[day]} ${date} ${months[month]}`;
+  dateText.innerHTML = `${days[day]} ${date} ${months[month]}`;
 };
 
 // Get hour, minutes, seconds
@@ -64,6 +65,39 @@ const getProgressValue = () => {
   const progressValueCurrent = (secondsCurrent / secondsDay) * 100;
 
   progressValue.style.width = `${progressValueCurrent}%`;
+
+  // background
+  if (6 <= hour && hour < 20) {
+    background.setAttribute("class", "clock__background--light");
+  } else {
+    background.setAttribute("class", "clock__background--dark");
+  }
+  // 7 <= hour && hour <= 20
+  //   ? background.setAttribute("class", "clock__background--light")
+  //   : background.setAttribute("class", "clock__background--dark");
+  const className = `.${background.className}`;
+  const clockBackground = clockContainer.querySelector(className);
+  const backgroundOpacity = clockBackground.style.opacity;
+  if (6 <= hour && hour < 20) {
+    clockBackground.style.opacity = (0 + (secondsCurrent - 15600)) / 3200;
+    dateText.classList.remove("date--white");
+    clockText.classList.remove("clock--white");
+  } else {
+    if (20 <= hour && hour < 21) {
+      clockBackground.style.opacity = (0 + (secondsCurrent - 72000)) / 3200;
+      backgroundOpacity > 0.7
+        ? dateText.classList.add("date--white")
+        : dateText.classList.remove("date--white");
+      backgroundOpacity > 0.7
+        ? clockText.classList.add("clock--white")
+        : clockText.classList.remove("clock--white");
+    } else {
+      dateText.classList.add("date--white");
+      clockText.classList.add("clock--white");
+    }
+  }
+
+  // clockBackground.style.opacity = (0 + (secondsCurrent - 72000)) / 3200;
 };
 
 function init() {

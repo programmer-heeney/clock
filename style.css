@@ -1,24 +1,64 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: "Open Sans", sans-serif;
 }
 
 .clock {
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.clock__background--dark {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: "";
+  background: url("imgs/night-sky.jpg") no-repeat center;
+  background-size: cover;
+  z-index: -1;
+}
+
+.clock__background--light {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: "";
+  background: url("imgs/day-sky.jpg") no-repeat center;
+  background-size: cover;
+  z-index: -1;
 }
 
 .clock #date {
   margin-bottom: 0;
   margin-top: 20px;
   font-size: 25px;
+  transition: all 5s ease-in-out;
+}
+
+.date--white {
+  color: white;
 }
 
 .clock #clock {
   font-size: 100px;
   margin: 25px;
   margin-top: 0;
+  transition: all 5s ease-in-out;
+}
+
+.clock--white {
+  color: white;
 }
 
 .clock .progress__bar {
