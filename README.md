@@ -1,3 +1,3 @@
-# Timer
+# Clock
 
-A simple timer
+A simple clock
